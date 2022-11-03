@@ -8,8 +8,20 @@ var express_1 = __importDefault(require("express"));
 var dotenv_1 = __importDefault(require("dotenv"));
 var router = express_1.default.Router();
 dotenv_1.default.config();
+router.get("/login/success", function (req, res) {
+    if (req.user) {
+        return res.status(200).send({
+            success: true,
+            message: "User authenticated.",
+            user: req.user,
+        });
+    }
+    else {
+        return res.status(403);
+    }
+});
 router.post("/login", passport_1.default.authenticate("local"), function (req, res) {
-    res.status(200).send("success");
+    res.status(200).send(req.user);
 });
 router.get("/google", passport_1.default.authenticate("google", { scope: ["profile", "email"] }));
 router.get("/google/callback", passport_1.default.authenticate("google", {
@@ -18,11 +30,12 @@ router.get("/google/callback", passport_1.default.authenticate("google", {
 }), function (req, res) {
     res.redirect(process.env.CLIENT_URL || "/");
 });
-router.post("/logout", function (req, res, next) {
-    req.logout({ keepSessionInfo: false }, function (err) {
+router.delete("/logout", function (req, res, next) {
+    req.logout(function (err) {
         if (err) {
             return next(err);
         }
+        console.log("logout");
         res.redirect(process.env.CLIENT_URL || "/");
     });
 });

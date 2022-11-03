@@ -154,7 +154,6 @@ module.exports = function (passport) {
                     cb(e_3, null);
                     return [3 /*break*/, 3];
                 case 3:
-                    console.log(user);
                     userInformation = {
                         username: user.username,
                         email: user.email,

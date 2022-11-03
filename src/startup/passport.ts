@@ -98,7 +98,6 @@ module.exports = function (passport: any) {
     } catch (e) {
       cb(e, null);
     }
-    console.log(user);
     const userInformation: UserInfoInterface = {
       username: user.username,
       email: user.email,
