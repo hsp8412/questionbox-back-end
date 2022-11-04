@@ -22,6 +22,7 @@ module.exports = function (passport: any) {
         try {
           const user: UserInterface = await User.findOne({
             email: email,
+            provider: "email",
           });
           if (!user) {
             return done(null, false);
@@ -53,7 +54,10 @@ module.exports = function (passport: any) {
       ) {
         let user;
         try {
-          user = await User.findOne({ provider_id: profile.id });
+          user = await User.findOne({
+            provider_id: profile.id,
+            provider: "google",
+          });
         } catch (e) {
           return done(e, null);
         }

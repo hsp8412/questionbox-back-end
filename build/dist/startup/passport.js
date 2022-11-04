@@ -58,6 +58,7 @@ module.exports = function (passport) {
                     _a.trys.push([1, 4, , 5]);
                     return [4 /*yield*/, User.findOne({
                             email: email,
+                            provider: "email",
                         })];
                 case 2:
                     user = _a.sent();
@@ -89,7 +90,10 @@ module.exports = function (passport) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, User.findOne({ provider_id: profile.id })];
+                        return [4 /*yield*/, User.findOne({
+                                provider_id: profile.id,
+                                provider: "google",
+                            })];
                     case 1:
                         user = _a.sent();
                         return [3 /*break*/, 3];
