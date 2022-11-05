@@ -12,7 +12,13 @@ require("./startup/passport")(passport);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+    methods: ["GET", "PUT", "POST", "DELETE", "PATCH"],
+  })
+);
 
 app.use(
   session({

@@ -31,12 +31,12 @@ router.get("/google/callback", passport_1.default.authenticate("google", {
     res.redirect(process.env.CLIENT_URL || "/");
 });
 router.delete("/logout", function (req, res, next) {
+    var user = req.user;
     req.logout(function (err) {
         if (err) {
-            return next(err);
+            throw err;
         }
-        console.log("logout");
-        res.redirect(process.env.CLIENT_URL || "/");
+        return res.status(200).send(user);
     });
 });
 module.exports = router;

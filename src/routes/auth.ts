@@ -41,12 +41,12 @@ router.get(
 );
 
 router.delete("/logout", function (req, res, next) {
+  const user = req.user;
   req.logout(function (err) {
     if (err) {
-      return next(err);
+      throw err;
     }
-    console.log("logout");
-    res.redirect(process.env.CLIENT_URL || "/");
+    return res.status(200).send(user);
   });
 });
 
