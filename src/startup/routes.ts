@@ -6,6 +6,9 @@ const authRoute = require("../routes/auth");
 const boxRoute = require("../routes/box");
 
 module.exports = function (app: Application) {
+  app.get("/", function (req, res, next) {
+    res.status(200).send("Hi, It works!");
+  });
   app.use(express.json());
   app.use(cors({ origin: "http://localhost:3000", credentials: true }));
   app.use("/api/user", userRoute);
